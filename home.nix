@@ -1,25 +1,33 @@
 { config, pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
   home.username = "conor";
   home.homeDirectory = "/home/conor";
 
-  home.packages = [
-    pkgs.tmux
-  ];
+  programs.git = {
+    enable = true;
+    userName = "Conor Sinclair";
+    userEmail = "conor@sinclair.software";
+    aliases = {
+      st = "status";
+    };
+    extraConfig = {
+      core.editor = "nvim";
+      core.pager = "delta";
+      pull.ff = "only";
+      init.defaultBranch = "development";
+      interactive.diffFilter = "delta --color-onlydefaultBranch = development";
+      delta = {
+        "plus-color" = "#09CB5F";
+        "minus-color" = "#340001";
+        "syntax-theme" = "Monokai Extended";
+      };
+    };
+  };
   
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
+  programs.command-not-found.enable = true;
+
   home.stateVersion = "21.05";
 }
